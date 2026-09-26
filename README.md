@@ -7,9 +7,10 @@ The evolution pipeline is implemented in `wmsm/evidence_pipeline.py` and is laun
 ## Installation
 
 ```bash
-python -m pip install -e .
-python -m pip install -r requirements-evidence.txt
+python -m pip install -e . -r requirements-evidence.txt
 ```
+
+This installs the local EviSkill package together with the optional dependencies used for semantic Evidence-Window construction.
 
 Install ALFWorld, AppWorld, or ScienceWorld separately when running the corresponding benchmark. API credentials are read from environment variables and are not stored in this directory.
 
@@ -61,8 +62,6 @@ EVIDENCE_EMBEDDING_MODEL=/path/or/model-name \
 OUTPUT_DIR=outputs/alfworld_run \
 scripts/run_alfworld.sh
 ```
-
-The ALFWorld action agent deliberately uses the **oldprompt** template from `alfworld_qwen3.5_4b_oldprompt_gpu2_20260827`.
 
 ### AppWorld
 
