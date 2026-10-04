@@ -1,0 +1,91 @@
+schema_version: 1
+
+provenance:
+  dataset: ScienceWorld
+  benchmark_repository: https://github.com/allenai/ScienceWorld
+  benchmark_commit: f6d8f5ec41eadfdcad23cc3ab097f0903dc1378b
+  note: >-
+    Main experiments used free-form action generation (the admissible-action
+    list was not supplied to the Action Agent) and isolated HTTP environment
+    servers launched with the active Python interpreter.
+
+environment: {}
+
+paths:
+  manifest: data/splits/scienceworld_main/train/items.json
+  selection_manifest: data/splits/scienceworld_main/val/items.json
+  test_manifest: data/splits/scienceworld_main/test/items.json
+  skill_bank: skills/scienceworld_initial.md
+  scienceworld_path: ${SCIENCEWORLD_PATH:-/path/to/ScienceWorld}
+  scienceworld_jar_path: ${SCIENCEWORLD_JAR_PATH:-/path/to/ScienceWorld/scienceworld/scienceworld.jar}
+  evidence_embedding_model: ${EVIDENCE_EMBEDDING_MODEL:-Qwen/Qwen3-Embedding-0.6B}
+
+defaults:
+  watcher:
+    max_restarts: -1
+    sleep_seconds: 120
+  arguments:
+    dataset: scienceworld
+    epochs: 4
+    bundle_size: 4
+    bundle_sampling_strategy: shuffle_epoch
+    l1_trajectory_minibatch_size: 4
+    max_steps: 100
+    seed: 42
+    action_llm_kind: openai
+    action_max_new_tokens: 512
+    action_max_retries: -1
+    action_timeout: 300
+    action_reasoning_effort: medium
+    teacher_model: gpt-5.5
+    llm_kind: openai
+    teacher_base_url: ${OPENAI_BASE_URL}
+    teacher_max_tokens: 4096
+    teacher_max_retries: -1
+    teacher_timeout: 300
+    teacher_reasoning_effort: medium
+    scienceworld_auto_server: true
+    scienceworld_server_host: 127.0.0.1
+    scienceworld_server_port_start: ${SCIENCEWORLD_SERVER_PORT_START:-9840}
+    scienceworld_env_timeout: 300
+    scienceworld_env_step_limit: 100
+    scienceworld_action_history_length: 8
+    scienceworld_use_admissible_actions: false
+    llm_max_input_chars: 60000
+    llm_max_observation_chars: 3000
+    l2_evidence_window_grouping: semantic
+    evidence_embedding_device: cpu
+    semantic_window_min_evidence: 8
+    semantic_window_max_evidence: 15
+    epoch_skill_update_mode: cluster_step
+    epoch_edit_budget: 128
+    epoch_merge_max_candidates: 8
+    l2_selection_size: 48
+    l2_replay_ranges_per_edit: 3
+    post_reject_replay_cap: 15
+    working_branch_provisional_cap: 16
+    epoch_trajectory_comparison_tasks: 0
+    epoch_final_replay_ranges_per_edit: 0
+    selection_accept_tie: false
+    no_l2_selection_feedback: true
+    use_evidence_working_branch: true
+    working_branch_defer_rule_ignored: true
+    working_branch_max_policy_defer_epochs: 2
+
+profiles:
+  gpt-5.5:
+    arguments:
+      action_model: gpt-5.5
+      action_base_url: ${OPENAI_BASE_URL}
+      output_dir: ${OUTPUT_ROOT:-outputs/eviskill/main_results}/scienceworld_gpt5.5
+  qwen3.5-4b:
+    arguments:
+      action_model: Qwen3.5-4B
+      action_base_url: ${OPENAI_BASE_URL}
+      action_temperature: 0.7
+      action_thinking: disabled
+      action_reasoning_effort: none
+      action_extra_body_json:
+        chat_template_kwargs:
+          enable_thinking: false
+      output_dir: ${OUTPUT_ROOT:-outputs/eviskill/main_results}/scienceworld_qwen3.5-4b

@@ -10,6 +10,7 @@ requires-python = ">=3.9"
 dependencies = [
   "requests>=2.31",
   "tqdm>=4.66",
+  "PyYAML>=6.0",
 ]
 
 [tool.setuptools.packages.find]

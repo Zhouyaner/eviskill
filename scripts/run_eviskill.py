@@ -547,8 +547,8 @@ def add_generation_args(p):
     )
     p.add_argument("--llm-debug-dir", default=None)
 
-    p.add_argument("--alfworld-path", default=None, help="Path to the external ALFWorld installation.")
-    p.add_argument("--alfworld-config", default=None, help="Path to the external ALFWorld config.")
+    p.add_argument("--alfworld-path", default=None, help="Optional ALFWorld source checkout added to PYTHONPATH.")
+    p.add_argument("--alfworld-config", default=None, help="ALFWorld runtime YAML configuration.")
     p.add_argument("--alfworld-split", default="train")
     p.add_argument("--alfworld-max-resets-to-find-task", type=int, default=512)
     p.add_argument(
