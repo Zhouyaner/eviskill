@@ -9,8 +9,6 @@ from .common import (
 )
 
 
-# Main experiments use the original SkillRL ALFWorld action templates
-# (the ``oldprompt`` variant used by the 2026-08-27 runs).
 ALFWORLD_TEMPLATE_NO_HIS = """
 You are an expert agent operating in the ALFRED Embodied Environment.
 Your current observation is: {current_observation}
@@ -36,9 +34,6 @@ Once you've finished your reasoning, you should choose an admissible action for 
 ALFWORLD_ACTION_AGENT_PROMPT = "You are an expert agent operating in the ALFRED Embodied Environment."
 
 
-# The formal 2026-08-27 run routed all skill/evidence calls through the
-# shared prompts. Keep these names as aliases for API compatibility while
-# retaining the oldprompt action templates above.
 ALFWORLD_SKILL_MANAGER_L1_EVIDENCE_PROMPT = SKILL_MANAGER_L1_EVIDENCE_PROMPT
 ALFWORLD_SKILL_MANAGER_L1_FAILURE_EVIDENCE_PROMPT = SKILL_MANAGER_L1_FAILURE_EVIDENCE_PROMPT
 ALFWORLD_SKILL_MANAGER_L1_SUCCESS_EVIDENCE_PROMPT = SKILL_MANAGER_L1_SUCCESS_EVIDENCE_PROMPT

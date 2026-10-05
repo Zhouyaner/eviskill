@@ -36,8 +36,6 @@ def _official_react_few_shot_messages():
     for index in range(1, len(chunks), 2):
         source_role = chunks[index]
         content = chunks[index + 1].strip()
-        # The final official USER block is the runtime template. WMSM supplies
-        # that context separately so the immutable demonstration stays generic.
         if content.startswith("Using these APIs, now generate code to solve the actual task:"):
             continue
         messages.append(
