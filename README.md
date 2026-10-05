@@ -143,7 +143,7 @@ and benchmark-specific runtime settings. Set only the paths needed by the
 selected benchmark:
 
 ```bash
-export OPENAI_BASE_URL="https://your-openai-compatible-endpoint/v1"
+export OPENAI_BASE_URL="your-base-url"
 export OPENAI_API_KEY="your-api-key"
 
 export ALFWORLD_DATA="/absolute/path/to/alfworld-data"       # ALFWorld
@@ -164,7 +164,7 @@ The server implementation for ScienceWorld is included in
 
 ## Run an Experiment
 
-Only the two profiles used by the main experiments are exposed:
+Two profiles used by the main experiments are exposed:
 `gpt-5.5` and `qwen3.5-4b`.
 
 ```bash
@@ -178,15 +178,6 @@ scripts/run_scienceworld.sh qwen3.5-4b
 Replace the profile with `gpt-5.5` for the remote GPT configuration. The
 launcher reads the corresponding YAML, resolves environment variables, checks
 the command-line arguments, and starts the evolution pipeline.
-
-Inspect a resolved command without starting a benchmark:
-
-```bash
-python scripts/run_from_config.py \
-  --config configs/main/scienceworld.yaml \
-  --profile qwen3.5-4b \
-  --dry-run --allow-placeholders
-```
 
 ## Outputs and Reproducibility
 
